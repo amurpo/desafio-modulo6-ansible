@@ -1,0 +1,9 @@
+---
+- name: Deploy web servers in containers
+  hosts: all
+  become: true
+  gather_facts: true
+  
+  roles:
+    - common
+    - webserver

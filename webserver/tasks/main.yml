@@ -1,0 +1,41 @@
+---
+- name: Ensure Nginx is installed
+  apt:
+    name: nginx
+    state: present
+  become: true
+
+- name: Create document root
+  file:
+    path: "{{ document_root }}"
+    state: directory
+    mode: '0755'
+
+- name: Configure Nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: Deploy index page
+  template:
+    src: index.html.j2
+    dest: "{{ document_root }}/index.html"
+  notify: reload nginx
+
+- name: Ensure Nginx is running
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Get server status
+  uri:
+    url: "http://localhost:{{ nginx_port }}"
+    return_content: yes
+  register: webpage_content
+  ignore_errors: true
+
+- name: Debug webpage content
+  debug:
+    msg: "Webpage content: {{ webpage_content.content | default('No content fetched') }}"

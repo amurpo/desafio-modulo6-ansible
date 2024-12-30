@@ -1,0 +1,11 @@
+---
+# Container configuration
+container_names:
+  - node1
+  - node2
+nginx_port: 80
+host_port_start: 8081
+
+# Web server configuration
+site_title: "Welcome to {{ ansible_hostname }}"
+site_description: "This server is running on {{ ansible_distribution }} {{ ansible_distribution_version }}"

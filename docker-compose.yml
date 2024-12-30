@@ -1,0 +1,31 @@
+services:
+  node1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node1
+    command: /usr/sbin/sshd -D -e  # Add -e flag for logging to stderr
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tty: true
+    stdin_open: true
+    ports:
+      - "2221:22"
+      - "8081:80"  # nginx_port
+
+  node2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node2
+    command: /usr/sbin/sshd -D -e  # Add -e flag for logging to stderr
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tty: true
+    stdin_open: true
+    ports:
+      - "2222:22"  # Mapea el puerto 2222 en el host al puerto 22 del contenedor
+      - "8082:80"  # nginx_port
+

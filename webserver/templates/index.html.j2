@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ site_title }} otra versión</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ site_title }} de nuevo</h1>
+        <p>{{ site_description }}</p>
+        <h2>System Information:</h2>
+        <ul>
+            <li>Hostname: {{ ansible_hostname }}</li>
+            <li>Distribution: {{ ansible_distribution }}</li>
+            <li>Version: {{ ansible_distribution_version }}</li>
+            <li>IP Address: {{ ansible_default_ipv4.address }}</li>
+        </ul>
+    </div>
+</body>
+</html>
